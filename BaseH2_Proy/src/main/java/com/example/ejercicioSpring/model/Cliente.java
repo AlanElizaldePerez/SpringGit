@@ -15,7 +15,7 @@ public class Cliente {
 
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Pedido> pedidos;
-	
+
 	public Long getId() {
 		return id;
 	}
