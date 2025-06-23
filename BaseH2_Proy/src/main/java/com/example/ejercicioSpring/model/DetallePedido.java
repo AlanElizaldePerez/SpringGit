@@ -14,6 +14,8 @@ public class DetallePedido {
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "pedido_id")
+	
+	
 	private Pedido pedido;
 
 	private int cantidad;
