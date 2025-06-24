@@ -13,4 +13,6 @@ public interface DetallePedidoService {
 	public void deleteById(Long id);
 	public DetallePedido guardarConValidacion(DetallePedido detallePedido);
 	 List<DetallePedido> findByCategoriaId(Long DetallePedidoId);
+
+	 DetallePedido save(DetallePedido detallePedido);
 }
