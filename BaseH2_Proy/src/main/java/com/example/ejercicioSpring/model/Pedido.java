@@ -29,7 +29,9 @@ public class Pedido {
 
 	@PreUpdate
 	public void calcularTotal() {
-		this.total = productos != null ? productos.stream().mapToDouble(DetallePedido::getSubtotal).sum() : 0.0;
+		this.total = productos != null 
+			? productos.stream().mapToDouble(DetallePedido::getSubtotal).sum() 
+			: 0.0;
 	}
 
 	// Getters y Setters

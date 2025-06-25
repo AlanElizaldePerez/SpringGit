@@ -1,6 +1,7 @@
 package com.example.ejercicioSpring.controller;
 
 import com.example.ejercicioSpring.dto.PedidoDTO;
+import com.example.ejercicioSpring.dto.PedidoRespuestaDTO;
 import com.example.ejercicioSpring.model.Pedido;
 import com.example.ejercicioSpring.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,11 @@ public class PedidoController {
 
     @PostMapping
     public ResponseEntity<?> crearPedido(@Valid @RequestBody PedidoDTO dto) {
-        Pedido pedido = service.crearPedido(dto);
+        PedidoRespuestaDTO respuesta = service.crearPedido(dto);
         return ResponseEntity.ok()
                 .header("X-Pedido-Creado", "true")
                 .header("X-Fecha-Registro", LocalDate.now().toString())
-                .body(pedido);
+                .body(respuesta);
     }
 
     @GetMapping("/cliente/{id}")
