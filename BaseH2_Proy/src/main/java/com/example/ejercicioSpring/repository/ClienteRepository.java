@@ -5,4 +5,5 @@ import com.example.ejercicioSpring.model.Cliente;
 
 public interface ClienteRepository extends JpaRepository <Cliente,Long>  {
 
+
 }

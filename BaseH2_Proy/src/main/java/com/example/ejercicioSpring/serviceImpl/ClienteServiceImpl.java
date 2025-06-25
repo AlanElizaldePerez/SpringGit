@@ -13,52 +13,19 @@
 	@Service
 	public class ClienteServiceImpl implements ClienteService {
 
-	    @Autowired
-	    private ClienteRepository clienteRepository;
-
-	    @Override
-	    public List<Cliente> findAll() {
-	        return clienteRepository.findAll();
-	    }
-
-	    @Override
-	    public Cliente save(Cliente cliente) {
-	        return clienteRepository.save(cliente);
-	    }
-
-	    @Override
-	    public Cliente update(Long id, Cliente clienteActualizado) {
-	        Cliente cliente = clienteRepository.findById(id)
-	            .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
-	        cliente.setNombre(clienteActualizado.getNombre());
-	        return clienteRepository.save(cliente);
-	    }
-
-	    @Override
-	    public void deleteById(Long id) {
-	        if (!clienteRepository.existsById(id)) {
-	            throw new RuntimeException("Cliente no encontrado para eliminar");
-	        }
-	        clienteRepository.deleteById(id);
-	    }
-
+		@Autowired
+	    private ClienteRepository repo;
+		
 		@Override
-		public Cliente updatesave(Long id, Cliente updateCliente) {
-			// TODO Auto-generated method stub
-			return null;
+		public Cliente guardar(Cliente c) {
+			 return repo.save(c);
 		}
 
 		@Override
-		public Cliente guardarConValidacion(Cliente Cliente) {
-			// TODO Auto-generated method stub
-			return null;
+		public List<Cliente> listar() {
+			return repo.findAll();
 		}
 
-		@Override
-		public List<Cliente> findByCategoriaId(Long ClienteId) {
-			// TODO Auto-generated method stub
-			return null;
-		}
 
 
 	}

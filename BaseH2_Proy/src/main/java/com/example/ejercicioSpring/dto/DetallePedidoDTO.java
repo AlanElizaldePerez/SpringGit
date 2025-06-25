@@ -30,4 +30,5 @@ public class DetallePedidoDTO {
 	public void setCantidad(int cantidad) { 
 		this.cantidad = cantidad;
 		}
+
 }
