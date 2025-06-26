@@ -70,12 +70,13 @@ public class PedidoServiceImpl implements PedidoService {
             detalles.add(detalle);
         }
 
-        if (pedido.getTotal() < 200.0) {
+        pedido.setProductos(detalles);
+        pedido.setTotal(total);
+        
+        if (pedido.getTotal() < 200.00) {
             throw new ReglaNegocioException("El total del pedido debe ser al menos $200.00");
         }
 
-        pedido.setProductos(detalles);
-        pedido.setTotal(total);
         Pedido guardado = pedidoRepo.save(pedido);
 
         // Mapeo personalizado
@@ -105,17 +106,47 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
-    public List<Pedido> pedidosPorCliente(Long Id) {
+    public List<PedidoRespuestaDTO> pedidosPorCliente(Long Id) {
         Cliente cliente = clienteRepo.findById(Id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Cliente no encontrado con ID: " + Id));
-        return cliente.getPedidos();
+        return cliente.getPedidos().stream()
+                .map(this::convertirAPedidoDTO)
+                .toList();
     }
 
     @Override
-    public Pedido buscarPedido(Long Id) {
-        return pedidoRepo.findById(Id)
+    public PedidoRespuestaDTO buscarPedido(Long Id) {
+    	Pedido pedido = pedidoRepo.findById(Id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Pedido no encontrado con ID: " + Id));
+
+        return convertirAPedidoDTO(pedido);
     }
+    
+    private PedidoRespuestaDTO convertirAPedidoDTO(Pedido pedido) {
+	    PedidoRespuestaDTO respuesta = new PedidoRespuestaDTO();
+	    respuesta.setId(pedido.getId());
+	    respuesta.setFecha(pedido.getFecha());
+	    respuesta.setTotal(pedido.getTotal());
+
+	    ClienteResumenDTO clienteDTO = new ClienteResumenDTO();
+	    clienteDTO.setId(pedido.getCliente().getId());
+	    clienteDTO.setNombre(pedido.getCliente().getNombre());
+	    clienteDTO.setCorreo(pedido.getCliente().getCorreo());
+	    respuesta.setCliente(clienteDTO);
+
+	    List<DetalleRespuestaDTO> detalles = pedido.getProductos().stream().map(det -> {
+	        DetalleRespuestaDTO d = new DetalleRespuestaDTO();
+	        d.setProducto(det.getProducto().getNombre());
+	        d.setCantidad(det.getCantidad());
+	        d.setSubtotal(det.getSubtotal());
+	        return d;
+	    }).toList();
+
+	    respuesta.setDetalles(detalles);
+
+	    return respuesta;
+	}
+    
 
 	
 }

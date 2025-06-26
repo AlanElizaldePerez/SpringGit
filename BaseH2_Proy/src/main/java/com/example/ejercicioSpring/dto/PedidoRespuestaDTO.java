@@ -44,5 +44,6 @@ public class PedidoRespuestaDTO {
 	public void setDetalles(List<DetalleRespuestaDTO> detalles) {
 		this.detalles = detalles;
 	}
-    
+	
+	
 }
