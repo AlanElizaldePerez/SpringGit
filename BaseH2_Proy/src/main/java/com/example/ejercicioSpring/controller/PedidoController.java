@@ -29,13 +29,15 @@ public class PedidoController {
     }
 
     @GetMapping("/cliente/{id}")
-    public List<Pedido> pedidosCliente(@PathVariable Long id) {
-        return service.pedidosPorCliente(id);
+    public ResponseEntity<List<PedidoRespuestaDTO>> pedidosPorCliente(@PathVariable Long id) {
+        List<PedidoRespuestaDTO> pedidos = service.pedidosPorCliente(id);
+        return ResponseEntity.ok(pedidos);
     }
 
     @GetMapping("/{id}")
-    public Pedido buscarPedido(@PathVariable Long id) {
-        return service.buscarPedido(id);
+    public ResponseEntity<PedidoRespuestaDTO> buscarPedido(@PathVariable Long id) {
+        PedidoRespuestaDTO pedido = service.buscarPedido(id);
+        return ResponseEntity.ok(pedido);
     }
 }
 

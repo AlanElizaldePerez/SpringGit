@@ -9,8 +9,8 @@ import com.example.ejercicioSpring.model.Pedido;
 public interface PedidoService {
 	
 	public PedidoRespuestaDTO crearPedido(PedidoDTO dto);
-    public List<Pedido> pedidosPorCliente(Long id);
-    public Pedido buscarPedido(Long id);
+    public List<PedidoRespuestaDTO> pedidosPorCliente(Long id);
+    public PedidoRespuestaDTO buscarPedido(Long id);
 	
     
 }
