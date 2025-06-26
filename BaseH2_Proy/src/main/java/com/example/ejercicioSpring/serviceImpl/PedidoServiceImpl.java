@@ -32,7 +32,6 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public PedidoRespuestaDTO crearPedido(PedidoDTO dto) {
-        // dto.getId() se refiere al clienteId según tu estructura
         Cliente cliente = clienteRepo.findById(dto.getId())
                 .orElseThrow(() -> new RecursoNoEncontradoException("Cliente no encontrado con ID: " + dto.getId()));
 
@@ -43,7 +42,6 @@ public class PedidoServiceImpl implements PedidoService {
         double total = 0.0;
 
         for (DetallePedidoDTO d : dto.getProductos()) {
-            // d.getId() es el productoId
             Producto producto = productoRepo.findById(d.getId())
                     .orElseThrow(() -> new RecursoNoEncontradoException("Producto no encontrado con ID: " + d.getId()));
 
