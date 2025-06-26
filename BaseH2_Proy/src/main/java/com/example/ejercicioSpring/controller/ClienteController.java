@@ -4,9 +4,9 @@ import com.example.ejercicioSpring.dto.ClienteDTO;
 import com.example.ejercicioSpring.model.Cliente;
 import com.example.ejercicioSpring.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,7 +17,7 @@ public class ClienteController {
     private ClienteService service;
 
     @PostMapping
-    public Cliente registrar(@Valid @RequestBody ClienteDTO dto) {
+    public Cliente registrar(@RequestBody @Validated  ClienteDTO dto) {
         Cliente cliente = new Cliente();
         cliente.setNombre(dto.getNombre());
         cliente.setCorreo(dto.getCorreo());
